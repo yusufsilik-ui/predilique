@@ -35,7 +35,10 @@
         <label>Use All In:</label>
         <input type="checkbox" name="all_in" id="all_in"><br><br>
 
-        <button type="submit">Start Post-Only Order</button>
+        <label>Reduce Only:</label>
+        <input type="checkbox" name="reduce_only" id="reduce_only"><br><br>
+
+        <button type="submit">Place Order</button>
     </form>
 
     <form method="POST" action="{{ url_for('stop_order') }}" style="margin-top:20px;">
