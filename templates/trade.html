@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trade - Predilique</title>
+</head>
+<body>
+    <h1>Trade BTCUSDC Futures</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {% if category == 'success' %}green{% else %}red{% endif %};">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <p>USDT Balance: {{ usdt_balance }}</p>
+
+    <form method="POST">
+        <label>Side:</label>
+        <select name="side" required>
+            <option value="BUY">Buy</option>
+            <option value="SELL">Sell</option>
+        </select><br><br>
+
+        <label>Amount (USDT):</label>
+        <input type="number" step="0.01" name="amount_usdt" id="amount_usdt" required>
+        <button type="button" onclick="setAllIn()">All In</button><br><br>
+
+        <label>Leverage:</label>
+        <input type="number" name="leverage" min="1" max="125" value="1" required><br><br>
+
+        <label>Use All In:</label>
+        <input type="checkbox" name="all_in" id="all_in"><br><br>
+
+        <button type="submit">Place Order</button>
+    </form>
+
+    <script>
+        function setAllIn() {
+            const balance = {{ usdt_balance }};
+            document.getElementById('amount_usdt').value = balance;
+            document.getElementById('all_in').checked = true;
+        }
+    </script>
+
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>
